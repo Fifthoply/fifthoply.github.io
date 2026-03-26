@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es"><head>  
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Papa Games</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+ 
+<link rel="icon" type="image/png" href="/papaweb/icons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/papaweb/icons/favicon.svg">
+<link rel="shortcut icon" href="/papaweb/icons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/papaweb/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Papa Web">
+<link rel="manifest" href="/papaweb/icons/site.webmanifest">
+ 
+<style>
+    :root {
+        --primary-blue: #12009e;
+        --text-dark: #000000;
+        --white: #ffffff;
+    }
+ 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+ 
+    /* Fade page IN */
+    body {
+        animation: fadeIn 0.35s ease;
+    }
+ 
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+ 
+    /* Fade OUT on navigation */
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+ 
+    /* Header */
+    header {
+        background-color: var(--primary-blue);
+        color: var(--white);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px;
+    }
+ 
+    .logo-container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+ 
+    .logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 15px;
+    }
+ 
+    .nav-item {
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 0 15px;
+        cursor: pointer;
+        transition:
+            background-color 0.25s ease,
+            color 0.25s ease,
+            padding 0.25s ease,
+            border-radius 0.25s ease,
+            transform 0.25s ease;
+    }
+ 
+    /* ACTIVE button */
+    .nav-item.active {
+        background-color: var(--white);
+        color: var(--primary-blue);
+        padding: 8px 18px;
+        border-radius: 12px;
+        animation: popActive 0.35s ease forwards;
+    }
+ 
+    @keyframes popActive {
+        0% { transform: scale(0.8); opacity: 0; }
+        60% { transform: scale(1.08); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+ 
+    .separator {
+        width: 2px;
+        height: 25px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+ 
+    /* Center content */
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+        gap: 14px;
+    }
+ 
+    /* Dropdown */
+    select {
+        font-size: 1.3rem;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 12px;
+        border: 3px solid black;
+        background-color: white;
+        outline: none;
+        cursor: pointer;
+        margin-bottom: 20px;
+        max-width: 90vw;
+    }
+ 
+    /* Iframe wrapper to preserve aspect ratio */
+    .iframe-shell {
+        position: relative;
+        width: 460px;
+        max-width: 90vw;
+        aspect-ratio: 23 / 18; /* matches 460x360 */
+        border-radius: 20px;
+        background-color: #999;
+        overflow: hidden;
+        display: flex;
+    }
+ 
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background-color: #999;
+    }
+ 
+    /* --- FULLSCREEN STYLES --- */
+ 
+    /* 1. Body state when fullscreen is active */
+    body.fullscreen-active {
+        background: #000;
+        overflow: hidden; /* Prevents scrolling */
+    }
+ 
+    /* 2. COMPLETELY HIDE HEADER IN FULLSCREEN */
+    body.fullscreen-active header {
+        display: none;
+    }
+ 
+    /* 3. The Iframe Shell in Fullscreen */
+    .iframe-shell.fullscreen {
+        position: fixed;
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Calculate max size preserving aspect ratio */
+        width: min(100vw, calc(100vh * (23 / 18)));
+        height: min(100vh, calc(100vw / (23 / 18)));
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+ 
+    /* Text below iframe */
+    .game-title {
+        margin-top: 8px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+    }
+ 
+    .game-tip {
+        margin-top: 6px;
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: #444;
+        text-align: center;
+        opacity: 0.9;
+    }
+ 
+    .original-link {
+        margin-top: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-blue);
+        text-decoration: none;
+    }
+    .original-link:hover {
+        text-decoration: underline;
+    }
+ 
+    /* Fullscreen button */
+    .fs-btn {
+        margin-top: 8px;
+        padding: 10px 16px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+        background: var(--primary-blue);
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+ 
+ 
+    @media (max-width: 900px) {
+        .iframe-shell {
+            width: 90vw;
+        }
+    }
+ 
+</style>
+</head><body>
+
+<header>
+    <div class="logo-container">
+        <img src="/papaweb/Header Icon.png" alt="Papa Logo" class="logo-img">
+    </div>
+ 
+    <div class="nav-item" onclick="animateAndGo('/papaweb/home/')">Papa Web</div>
+    <div class="separator"></div>
+ 
+    <div class="nav-item active">Papa Games</div>
+    <div class="separator"></div>
+ 
+    <div class="nav-item" onclick="animateAndGo('/papaweb/blog/')">Papa Blog</div>
+</header>
+ 
+<main>
+    <select id="gameSelector">
+        <option value="https://www.udrop.com/file/Optp/papa_running_oficial_(DEFINITIVE)_TURBOWARP.html" data-original="https://scratch.mit.edu/projects/1208059541/">
+            Papa Running (solo PC.)
+        </option>
+        <option value="https://www.udrop.com/file/Opto/Atrapa_las_Cucharas!_TURBOWARP.html" data-original="https://scratch.mit.edu/projects/1212531860/">
+            Atrapa las Cucharas!
+        </option>
+        <option value="https://www.udrop.com/file/Optn/Atrapa_las_Cucharas_Ultra_Dificil_TURBOWARP.html" data-original="https://scratch.mit.edu/projects/1231889143/">
+            Atrapa las Cucharas Ultra Dificil
+        </option>
+        <option value="https://www.udrop.com/file/Optq/Papas_Space_Fighting_TURBOWARP.html" data-original="https://scratch.mit.edu/projects/1240762947/">
+            Papa Space Fighting (solo PC.)
+        </option>
+        <option value="https://www.udrop.com/file/Optm/Evita_a_Cocodriliano!_TURBOWARP.html" data-original="https://scratch.mit.edu/projects/1208697104">
+           Evita a Cocodriliano!
+        </option>
+    </select>
+ 
+    <div class="iframe-shell" id="iframeShell">
+        <!-- SE ACTUALIZÓ EL SRC AQUÍ PARA QUE COINCIDA CON EL VALUE DE LA PRIMERA OPCIÓN -->
+        <iframe id="gameFrame" src="https://www.udrop.com/file/Optp/papa_running_oficial_(DEFINITIVE)_TURBOWARP.html"></iframe>
+    </div>
+ 
+    <button class="fs-btn" id="fsBtn">Pantalla completa</button>
+ 
+    <div class="game-title" id="gameTitle">Papa Running (solo PC.)</div>
+ 
+    <a id="originalLink" class="original-link" href="https://scratch.mit.edu/projects/1208059541/" target="_blank" rel="noopener noreferrer">
+        Ver proyecto original
+    </a>
+ 
+    <div class="game-tip">
+        💾 Desde 01/02/2026. Los récords de los juegos se guardan.
+        <br>
+        ⚠️ Cuando cargues un juego, haz clic dentro de la pantalla para iniciarlo.
+        <br>
+        🕛 El juego puede tardar aproximadamente 1-3 segundos en cargar.
+        <br>
+        🔧 Si es que el juego no carga después de 10 segundos, el servidor de nginx podría estar malfuncionando.
+    </div>
+</main>
+
+<script>
+    // 1. LÓGICA DEL SELECTOR DE JUEGOS
+    const gameSelector = document.getElementById('gameSelector');
+    const gameFrame = document.getElementById('gameFrame');
+    const gameTitle = document.getElementById('gameTitle');
+    const originalLink = document.getElementById('originalLink');
+
+    gameSelector.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        
+        // Actualiza el iframe con el valor (URL) de la opción seleccionada
+        gameFrame.src = selectedOption.value;
+        
+        // Actualiza el título y el enlace original basándose en la opción
+        gameTitle.textContent = selectedOption.textContent.trim();
+        originalLink.href = selectedOption.getAttribute('data-original');
+    });
+
+    // 2. LÓGICA DEL BOTÓN DE PANTALLA COMPLETA
+    const fsBtn = document.getElementById('fsBtn');
+    const iframeShell = document.getElementById('iframeShell');
+
+    fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            iframeShell.requestFullscreen().catch(err => {
+                alert(`Error al intentar la pantalla completa: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    // Maneja los estilos de pantalla completa definidos en tu CSS
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement) {
+            document.body.classList.add('fullscreen-active');
+            iframeShell.classList.add('fullscreen');
+        } else {
+            document.body.classList.remove('fullscreen-active');
+            iframeShell.classList.remove('fullscreen');
+        }
+    });
+
+    // 3. FUNCIÓN DE NAVEGACIÓN ANIMADA (Mencionada en tu HTML)
+    function animateAndGo(url) {
+        document.body.style.animation = "fadeOut 0.35s ease forwards";
+        setTimeout(() => {
+            window.location.href = url;
+        }, 350); // Mismo tiempo que dura la animación en el CSS
+    }
+</script>
+
+</body></html>

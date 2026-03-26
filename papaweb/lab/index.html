@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papa Lab</title>
+<link rel="icon" type="image/png" href="/papaweb/icons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/papaweb/icons/favicon.svg" />
+<link rel="shortcut icon" href="/papaweb/icons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/papaweb/icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Papa Web" />
+<link rel="manifest" href="/papaweb/icons/site.webmanifest" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+  :root {
+    --primary-color: #00fa82; /* Bright green used throughout */
+    --bg-color: #000000;      /* Black background */
+    --text-dark: #000000;     /* Black text for contrast */
+    --font-main: 'Inter', sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    overflow-x: hidden;
+  }
+
+  /* --- Header Styles --- */
+  .header-container {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--bg-color);
+  }
+
+  .logo {
+    margin-right: 15px;
+  }
+
+  .header-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .volver-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-left: 10px;
+  }
+
+  .volver-link:hover {
+    text-decoration: underline;
+  }
+
+  .header-banner {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    padding: 12px 40px;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* --- Main Content Layout --- */
+  .main-content {
+    max-width: 1000px; /* Constrain width for centered layout */
+    margin: 0 auto;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 150px; /* Substantial spacing between sections */
+  }
+
+  .content-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .text-block {
+    flex: 1;
+    font-size: 28px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .image-block {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* --- Section 1 Specifics --- */
+  .sec1-text {
+    font-weight: 800;
+  }
+
+  .highlight {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    padding: 4px 12px;
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  .game-cards {
+    position: relative;
+    width: 450px;
+    height: 250px;
+  }
+
+  .card-img {
+    position: absolute;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+  }
+
+  /* Simulating the overlapping tilted screenshots */
+  .card-1 { top: 40px; left: 0; transform: rotate(-12deg); z-index: 1; }
+  .card-2 { top: 15px; left: 100px; transform: rotate(-2deg); z-index: 2; }
+  .card-3 { top: 10px; left: 200px; transform: rotate(12deg); z-index: 3; }
+
+  /* --- Section 2 Specifics --- */
+  .sec2-text {
+    font-weight: 400;
+    font-size: 26px;
+  }
+  
+  .sec2-text strong {
+    font-weight: 800;
+  }
+
+  .note-img {
+    transform: rotate(5deg);
+    box-shadow: 5px 5px 25px rgba(0,0,0,0.6);
+  }
+
+  /* --- Section 3 Specifics --- */
+  .sec3-text {
+    font-weight: 400;
+    font-size: 26px;
+  }
+  
+  .sec3-title {
+    font-weight: 800;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .chat-img {
+    transform: rotate(-3deg);
+    border-radius: 10px;
+  }
+
+  /* --- Footer Styles --- */
+  .site-footer {
+    background-color: var(--primary-color);
+    padding: 60px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-mascot {
+    margin-bottom: 20px;
+  }
+
+  .footer-text {
+    color: var(--text-dark);
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  /* Responsive fallback */
+  @media (max-width: 900px) {
+    .content-section {
+      flex-direction: column;
+      gap: 60px;
+    }
+    .game-cards {
+      width: 100%;
+      height: 300px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <img src="/papaweb/header%20icon.png" width="75" height="45" alt="Papa Lab Logo Icon" class="logo">
+      <h1 class="header-title">Papa Lab <a href="/papaweb/home" class="volver-link">&lt; Volver</a></h1>
+    </div>
+    <div class="header-banner">
+      Para todos los que desean innovar con Papa Pedo.
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- Section 1: Introduction -->
+    <section class="content-section">
+      <div class="text-block sec1-text">
+        Juegos con los que<br>
+        te entretienes,<br>
+        juegos con los que<br>
+        <span class="highlight">aprendes</span>
+      </div>
+      <div class="image-block">
+        <div class="game-cards">
+          <img src="/papaweb/lab/media/lab%201.png" width="220" height="140" alt="" class="card-img card-1">
+          <img src="/papaweb/lab/media/lab%202.png" width="220" height="140" alt="" class="card-img card-2">
+          <img src="/papaweb/lab/media/lab%203.png" width="220" height="140" alt="" class="card-img card-3">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Open Internet -->
+    <section class="content-section">
+      <div class="text-block sec2-text">
+        <strong>Creemos en el Internet Abierto</strong> y<br>
+        estamos de acuerdo con el Copyleft,<br>
+        por lo tanto, <strong>todo</strong> nuestro código<br>
+        puede ser usado por <strong>todos ustedes.</strong>
+      </div>
+      <div class="image-block">
+        <img src="/papaweb/lab/media/lab%204.png" width="320" height="280" alt="Yellow sticky note with thank you message" class="note-img">
+      </div>
+    </section>
+
+    <!-- Section 3: Why we do it -->
+    <section class="content-section">
+      <div class="text-block sec3-text">
+        <span class="sec3-title">Porqué lo hacemos?</span>
+        Nosotros también debimos<br>
+        aprender, por eso queremos<br>
+        facilitarles su aprendizaje.
+      </div>
+      <div class="image-block">
+        <img src="/papaweb/lab/media/lab%205.png" width="350" height="140" alt="Dark chat bubble with user comment" class="chat-img" style="background-color:transparent;">
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="/papaweb/lab/media/cloud.svg" width="450" height="300" alt="Cartoon brain character mascot" class="footer-mascot">
+    <div class="footer-text">
+      Con ❤️, The Papa Team.
+    </div>
+  </footer>
+
+</body>
+</html>
